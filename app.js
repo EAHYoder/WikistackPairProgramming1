@@ -10,6 +10,7 @@ db.authenticate().then(() => {
 
 app.use(morgan("dev")); //middleware for loggin messages
 app.use(express.static(__dirname + "/public")); //making routes for all files in the public directory
+app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //body parser
 
 //plugging in routers
@@ -34,7 +35,7 @@ app.use((err, req, res) => {
 
 const PORT = 1337;
 const init = async () => {
-  await db.sync({ force: true });
+  await db.sync();
   app.listen(PORT, () => {
     console.log(`App listening in port ${PORT}`);
   });
